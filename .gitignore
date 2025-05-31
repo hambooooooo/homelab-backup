@@ -1,0 +1,14 @@
+# Ignore venvs, logs, and temp files
+venv/
+__pycache__/
+*.log
+*.pid
+
+# Docker stuff
+*.tar
+*.img
+*.bak
+
+# Optional: hide secrets
+*.env
+.env

@@ -38,6 +38,8 @@ services:
       - "8222:80"
     volumes:
       - ./vaultwarden:/data
+    environment:
+      - WEBSOCKET_ENABLED=true
     restart: unless-stopped
 
 #  hastypaste:

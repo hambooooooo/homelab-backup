@@ -3,52 +3,100 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Homelab Dashboard 🚀</title>
+  <title>My Homelab Dashboard</title>
   <style>
     body {
-      background-color: #0e0f1a;
+      background-color: #f5f7fa;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #ffffff;
+      color: #333;
       text-align: center;
       margin: 0;
       padding: 20px;
     }
+
     h1 {
       margin-bottom: 30px;
+      font-size: 2rem;
+      font-weight: 600;
     }
+
     .btn-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
       max-width: 1000px;
-      margin: 0 auto 30px;
+      margin: 0 auto;
+      position: relative;
     }
+
     .btn {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 12px;
       flex: 1 1 200px;
-      max-width: 200px;
-      padding: 20px;
-      font-size: 18px;
-      color: #fff;
-      background-color: #1f1f2f;
-      border: 2px solid #4CAF50;
-      border-radius: 12px;
+      max-width: 240px;
+      padding: 14px 18px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
       text-decoration: none;
-      transition: 0.3s;
+      opacity: 0;
+      transform: translate(0, 0);
+      transition: transform 0.6s ease-out, opacity 0.6s ease-out, box-shadow 0.3s;
+      position: relative;
+      z-index: 1;
+      pointer-events: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
     }
+
     .btn:hover {
-      background-color: #4CAF50;
-      color: #000;
+      background-color: #f0f0f0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    #jellyfin-btn {
+      transform: scale(0.5);
+      animation: zoomIn 0.6s ease-out forwards;
+      z-index: 10;
+      position: relative;
+    }
+
+    @keyframes zoomIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+      }
+    }
+
+    .animated {
+      opacity: 1 !important;
+      transform: translate(0, 0) !important;
+      pointer-events: auto;
     }
 
     #stats {
-      background-color: #1d1d2b;
-      border: 2px solid #4CAF50;
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
       border-radius: 10px;
       padding: 20px;
-      margin: 0 auto;
       max-width: 500px;
+      margin: 30px auto 0;
       text-align: left;
+      color: #444;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
 
     #stats p {
@@ -56,8 +104,8 @@
     }
 
     .error {
-      color: red;
-      background: #330000;
+      color: #b00020;
+      background: #fce4e4;
       padding: 10px;
       border-radius: 10px;
       display: inline-block;
@@ -66,15 +114,33 @@
   </style>
 </head>
 <body>
-  <h1>My Homelab Dashboard 🛠️</h1>
+  <h1>My Homelab Dashboard 🧠</h1>
 
-  <div class="btn-container">
-    <a class="btn" href="http://192.168.1.72:9000" target="_blank">Portainer</a>
-    <a class="btn" href="http://192.168.1.72:8096" target="_blank">Jellyfin</a>
-    <a class="btn" href="http://192.168.1.72:8222" target="_blank">Vaultwarden</a>
-    <a class="btn" href="http://192.168.1.72:7878" target="_blank">Radarr</a>
-    <a class="btn" href="http://192.168.1.72:8081" target="_blank">qBittorrent</a>
-    <a class="btn" href="http://192.168.1.72:8080" target="_blank">Pi-hole</a>
+  <div class="btn-container" id="buttonBox">
+    <a class="btn" id="jellyfin-btn" href="http://192.168.1.72:8096" target="_blank">
+      <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/jellyfin.png" alt="Jellyfin Logo" />
+      <span>Jellyfin</span>
+    </a>
+    <a class="btn" href="http://192.168.1.72:9000" target="_blank">
+      <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/portainer.png" alt="Portainer Logo" />
+      <span>Portainer</span>
+    </a>
+    <a class="btn" href="http://192.168.1.72:8222" target="_blank">
+      <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/vaultwarden.png" alt="Vaultwarden Logo" />
+      <span>Vaultwarden</span>
+    </a>
+    <a class="btn" href="http://192.168.1.72:7878" target="_blank">
+      <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/radarr.png" alt="Radarr Logo" />
+      <span>Radarr</span>
+    </a>
+    <a class="btn" href="http://192.168.1.72:8081" target="_blank">
+      <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/qbittorrent.png" alt="qBittorrent Logo" />
+      <span>qBittorrent</span>
+    </a>
+    <a class="btn" href="http://192.168.1.72:8080" target="_blank">
+      <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/pi-hole.png" alt="Pi-hole Logo" />
+      <span>Pi-hole</span>
+    </a>
   </div>
 
   <div id="stats">
@@ -95,7 +161,7 @@
         document.getElementById('os').textContent = data.os;
         document.getElementById('uptime').textContent = data.uptime;
         document.getElementById('cpu').textContent = data.cpu + '%';
-        document.getElementById('memory').textContent = 
+        document.getElementById('memory').textContent =
           `${data.memory_used} GB / ${data.memory_total} GB (${data.memory_percent}%)`;
       } catch (err) {
         document.getElementById('stats').innerHTML +=
@@ -106,6 +172,25 @@
 
     loadStats();
     setInterval(loadStats, 10000);
+
+    window.addEventListener("load", () => {
+      const jellyfin = document.getElementById("jellyfin-btn");
+      const jellyfinRect = jellyfin.getBoundingClientRect();
+
+      const others = [...document.querySelectorAll(".btn:not(#jellyfin-btn)")];
+      others.forEach(btn => {
+        const rect = btn.getBoundingClientRect();
+        const deltaX = jellyfinRect.left - rect.left;
+        const deltaY = jellyfinRect.top - rect.top;
+        btn.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+      });
+
+      others.forEach((btn, i) => {
+        setTimeout(() => {
+          btn.classList.add("animated");
+        }, 800 + i * 150);
+      });
+    });
   </script>
 </body>
 </html>
