@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Homelab Dashboard 🚀</title>
+  <style>
+    body {
+      background-color: #0e0f1a;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #ffffff;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 30px;
+    }
+    .btn-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto 30px;
+    }
+    .btn {
+      flex: 1 1 200px;
+      max-width: 200px;
+      padding: 20px;
+      font-size: 18px;
+      color: #fff;
+      background-color: #1f1f2f;
+      border: 2px solid #4CAF50;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background-color: #4CAF50;
+      color: #000;
+    }
+
+    #stats {
+      background-color: #1d1d2b;
+      border: 2px solid #4CAF50;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 0 auto;
+      max-width: 500px;
+      text-align: left;
+    }
+
+    #stats p {
+      margin: 8px 0;
+    }
+
+    .error {
+      color: red;
+      background: #330000;
+      padding: 10px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Homelab Dashboard 🛠️</h1>
+
+  <div class="btn-container">
+    <a class="btn" href="http://192.168.1.72:9000" target="_blank">Portainer</a>
+    <a class="btn" href="http://192.168.1.72:8096" target="_blank">Jellyfin</a>
+    <a class="btn" href="http://192.168.1.72:8222" target="_blank">Vaultwarden</a>
+    <a class="btn" href="http://192.168.1.72:7878" target="_blank">Radarr</a>
+    <a class="btn" href="http://192.168.1.72:8081" target="_blank">qBittorrent</a>
+    <a class="btn" href="http://192.168.1.72:8080" target="_blank">Pi-hole</a>
+  </div>
+
+  <div id="stats">
+    <h2>📊 Server Stats</h2>
+    <p><strong>Hostname:</strong> <span id="hostname">Loading...</span></p>
+    <p><strong>OS:</strong> <span id="os">Loading...</span></p>
+    <p><strong>Uptime:</strong> <span id="uptime">Loading...</span></p>
+    <p><strong>CPU Usage:</strong> <span id="cpu">Loading...</span></p>
+    <p><strong>Memory Usage:</strong> <span id="memory">Loading...</span></p>
+  </div>
+
+  <script>
+    async function loadStats() {
+      try {
+        const res = await fetch('http://100.123.130.21:1337/api/stats');
+        const data = await res.json();
+        document.getElementById('hostname').textContent = data.hostname;
+        document.getElementById('os').textContent = data.os;
+        document.getElementById('uptime').textContent = data.uptime;
+        document.getElementById('cpu').textContent = data.cpu + '%';
+        document.getElementById('memory').textContent = 
+          `${data.memory_used} GB / ${data.memory_total} GB (${data.memory_percent}%)`;
+      } catch (err) {
+        document.getElementById('stats').innerHTML +=
+          '<p class="error">⚠️ Could not load stats</p>';
+        console.error(err);
+      }
+    }
+
+    loadStats();
+    setInterval(loadStats, 10000);
+  </script>
+</body>
+</html>
