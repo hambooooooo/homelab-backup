@@ -68,3 +68,5 @@
 2025-05-30 20:29:56.1241 Info Jackett startup finished in 27.069 s
 2025-05-30 21:29:55.2644 Info Checking for updates... Jackett variant: CoreLinuxMuslAmdx64
 2025-05-30 21:29:55.2657 Info Updates are disabled via --NoUpdates.
+2025-05-31 21:29:55.2669 Info Checking for updates... Jackett variant: CoreLinuxMuslAmdx64
+2025-05-31 21:29:55.2690 Info Updates are disabled via --NoUpdates.
